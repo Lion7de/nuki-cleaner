@@ -16,10 +16,17 @@ nukiApi.get(`/smartlock/${SMARTLOCK_ID}/auth`).then(async (response) => {
   const expiredAuthorizations = response.data
     .filter((authorization) => authorization.name.startsWith('anny'))
     .filter((authorization) => new Date(authorization.allowedUntilDate) < new Date());
+  console.log('===== Total Authorizations:', response.data.length);
+  console.log('===== Length:', expiredAuthorizations.length);
 
-  console.log('Length:', expiredAuthorizations.length);
-
+  let counter = 0;
   for (const authorization of expiredAuthorizations) {
+    counter++;
+
+    if (counter % 10 === 0) {
+      await new Promise((resolve) => setTimeout(resolve, 30000));
+    }
+
     console.log(`Deleting authorization ${authorization.name} for ${authorization.allowedUntilDate}`);
     await nukiApi.delete(`/smartlock/${SMARTLOCK_ID}/auth/${authorization.id}`);
   }

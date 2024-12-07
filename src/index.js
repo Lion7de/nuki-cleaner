@@ -17,7 +17,7 @@ nukiApi.get(`/smartlock/${SMARTLOCK_ID}/auth`).then(async (response) => {
     .filter((authorization) => authorization.name.startsWith('anny'))
     .filter((authorization) => new Date(authorization.allowedUntilDate) < new Date());
   console.log('===== Total Authorizations:', response.data.length);
-  console.log('===== Length:', expiredAuthorizations.length);
+  console.log('===== Expired Authorizations:', expiredAuthorizations.length);
 
   let counter = 0;
   for (const authorization of expiredAuthorizations) {

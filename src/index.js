@@ -24,7 +24,7 @@ nukiApi.get(`/smartlock/${SMARTLOCK_ID}/auth`).then(async (response) => {
     counter++;
 
     if (counter % 10 === 0) {
-      await new Promise((resolve) => setTimeout(resolve, 30000));
+      await new Promise((resolve) => setTimeout(resolve, 10000));
     }
 
     console.log(`Deleting authorization ${authorization.name} for ${authorization.allowedUntilDate}`);
